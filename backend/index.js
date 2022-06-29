@@ -1,3 +1,4 @@
+//importing external modules and setting the environment variables. set port to 8080.
 const express = require("express"),
        app = express(),
        port = process.env.PORT || 8080,
@@ -5,16 +6,22 @@ const express = require("express"),
 const bodyParser = require('body-parser');
 const fs = require("fs");
 
+// set up our express application and return a message back to console once our application is running.
 app.use(cors());
 app.use(bodyParser.json({ extended: true }));
 app.listen(port, () => console.log("Backend server live on " + port));
 
+// returns a message once a GET request to the specified route is made
 app.get("/", (req, res) => {
     res.send({ message: "Connected to Backend server!" });
 });
 
+// makes a call the addItem function once a POST request to the specified route is made
 app.post("/add/item", addItem)
 
+// takes in a request body from the Todo List Application which represents a todo item. 
+// The body is then converted into a new json object called newTask to represent the new todo item. 
+// The new json object is finally appended to a json list located in a file called database.json to represent our todos list.
 function addItem (request, response) {
     let id = request.body.jsonObject.id
     let task = request.body.jsonObject.task

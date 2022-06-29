@@ -40,13 +40,15 @@ class AddTodo extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
+    // creating a json object that will be used as a body request to be sent to the addItem function located in our Express application
     const jsonObject = {
       id: this.state.id,
-      task: this.state.task,
-      currentDate: this.state.currentDate,
+      task: this.state.content,
+      currentDate: this.state.date,
       dueDate: this.state.duedate
     };
 
+    // making a POST request the addItem function located in our Express Application and returning a response message
     Axios({
       method: "POST",
       url: "http://localhost:8080/add/item",
